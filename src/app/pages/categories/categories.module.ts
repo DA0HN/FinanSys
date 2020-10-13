@@ -1,9 +1,10 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
-import {CategoriesRoutingModule} from './categories-routing.module';
-import {CategoryListComponent} from './category-list';
-import {CategoryFormComponent} from './category-form';
+import { CategoriesRoutingModule } from './categories-routing.module';
+import { CategoryListComponent } from './category-list';
+import { CategoryFormComponent } from './category-form';
+import { CategoryService } from './shared';
 
 
 @NgModule({
@@ -13,7 +14,10 @@ import {CategoryFormComponent} from './category-form';
   ],
   imports: [
     CommonModule,
-    CategoriesRoutingModule
+    CategoriesRoutingModule,
+  ],
+  providers: [
+    CategoryService,
   ]
 })
 export class CategoriesModule {
