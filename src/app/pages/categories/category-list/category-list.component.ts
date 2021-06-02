@@ -25,7 +25,7 @@ export class CategoryListComponent implements OnInit {
 
     if (mustDelete) {
       this.categoryService.delete(category).subscribe(
-        () => this.categories = this.categories.filter(cat => cat != category),
+        () => this.categories = this.categories.filter(cat => cat !== category),
         _ => alert(`Erro ao tentar excluir`)
       );
     }
