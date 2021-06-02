@@ -1,6 +1,6 @@
-import { Observable } from 'rxjs';
-import { InMemoryDbService } from 'angular-in-memory-web-api';
-import { Category } from './pages/categories/shared';
+import {Observable} from 'rxjs';
+import {InMemoryDbService} from 'angular-in-memory-web-api';
+import {Category} from './pages/categories/shared';
 
 
 export class InMemoryDatabase implements InMemoryDbService {
@@ -12,9 +12,9 @@ export class InMemoryDatabase implements InMemoryDbService {
       {id: 1, name: 'Salário', description: 'Recebimento de Salário'},
       {id: 1, name: 'Freelas', description: 'Trabalhos como freelancer'},
     ];
-    
+
     return {categories};
   }
-  
-  
+
+
 }
