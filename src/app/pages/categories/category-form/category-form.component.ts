@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Category, CategoryService} from '@/app/pages/categories/shared';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {switchMap} from 'rxjs/operators';
+import toastr from 'toastr';
 
 
 @Component({
@@ -34,8 +35,21 @@ export class CategoryFormComponent implements OnInit, AfterContentChecked {
     this.loadCategory();
   }
 
+  /**
+   * Garante que será executado apenas após o componente estar completamente carregado.
+   */
   ngAfterContentChecked(): void {
     this.setPageTitle();
+  }
+
+  submitForm(): void {
+    this.submittingForm = true;
+
+    if (this.currentAction === 'new') {
+      this.createCategory();
+    } else {
+      this.updateCategory();
+    }
   }
 
   private setCurrentAction(): void {
@@ -57,7 +71,7 @@ export class CategoryFormComponent implements OnInit, AfterContentChecked {
 
   private loadCategory(): void {
     if (this.currentAction === 'edit') {
-      this.route.params.pipe(
+      this.route.paramMap.pipe(
         switchMap(params =>
           this.categoryService.getById(+params.get('id'))
         )
@@ -78,6 +92,70 @@ export class CategoryFormComponent implements OnInit, AfterContentChecked {
     } else {
       const categoryName = this.category.name || '';
       this.pageTitle = `Editando categoria: ${categoryName}`;
+    }
+  }
+
+  private createCategory(): void {
+    const newCategory = Object.assign(
+      new Category(),
+      this.categoryForm.value
+    );
+
+    this.categoryService
+      .create(newCategory)
+      .subscribe(
+        (category) => this.actionsForSuccess(category),
+        error => this.actionsForError(error)
+      );
+  }
+
+  private updateCategory(): void {
+    const updatedCategory = Object.assign(
+      new Category(),
+      this.categoryForm.value
+    );
+
+    this.categoryService
+      .update(updatedCategory)
+      .subscribe(
+        (category) => this.actionsForSuccess(category),
+        error => this.actionsForError(error)
+      );
+  }
+
+  /**
+   * Apresenta a mensagem de sucesso para o usuário. <br/>
+   * Logo em seguida faz o redirecionamento do usuário para a tela de
+   * edição utilizando como parâmetro da nova categoria criada. <br/>
+   * Desse modo, após criar a Categoria o usuário irá poder atualizar os dados salvos.
+   *
+   * @param newCategory categoria que foi criada
+   * @private
+   */
+  private actionsForSuccess(newCategory: Category): void {
+    toastr.success('Solicitação processada com sucesso!');
+
+    this.router
+      .navigateByUrl('categories', {skipLocationChange: true})
+      .then(() => this.router.navigate(['categories', newCategory.id, 'edit']));
+  }
+
+  /**
+   * Apresenta mensagem de erro para o usuário. <br/>
+   * Caso seja um erro do lado do servidor armazena as mensagens de erro.
+   *
+   * @param error objeto que contém as informações sobre o erro.
+   * @private
+   */
+  private actionsForError(error): void {
+    toastr.error('Ocorreu um erro ao processar a sua solicitação!');
+
+    this.submittingForm = false;
+
+    if (error.status === 422) {
+      this.serverErrorMessages = JSON.parse(error._body).errors;
+    } else {
+      this.serverErrorMessages = ['Falha na comunicação com o servidor. Por favor, tente mais tarde.'];
     }
   }
 }
