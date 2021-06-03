@@ -5,6 +5,10 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {switchMap} from 'rxjs/operators';
 import toastr from 'toastr';
 
+interface EntryTypeOption {
+  field: string;
+  text: string;
+}
 
 @Component({
   selector: 'app-entry-form',
@@ -74,6 +78,15 @@ export class EntryFormComponent implements OnInit, AfterContentChecked {
     } else {
       this.updateEntry();
     }
+  }
+
+  get typeOptions(): Array<EntryTypeOption> {
+    return Object.entries(Entry.types).map(([field, text]) => {
+      return {
+        field,
+        text,
+      } as EntryTypeOption;
+    });
   }
 
   private setCurrentAction(): void {
