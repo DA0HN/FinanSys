@@ -5,6 +5,7 @@ import {EntriesRoutingModule} from './entries-routing.module';
 import {EntryService} from './shared';
 import {EntryListComponent} from './entry-list';
 import {EntryFormComponent} from '@/app/pages/entries/entry-form';
+import {ReactiveFormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import {EntryFormComponent} from '@/app/pages/entries/entry-form';
   ],
   imports: [
     CommonModule,
-    EntriesRoutingModule
+    EntriesRoutingModule,
+    ReactiveFormsModule
   ],
   providers: [
     EntryService
