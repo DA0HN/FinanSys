@@ -3,13 +3,16 @@ import {Observable, throwError} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 import {Injectable} from '@angular/core';
 import {Entry} from '@/app/pages/entries/shared/entry.model';
+import {CategoryService} from '@/app/pages/categories/shared';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EntryService {
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+              private categoryService: CategoryService
+  ) {
   }
 
   private readonly API: string = '/api/entries';
@@ -42,6 +45,9 @@ export class EntryService {
   }
 
   create(entry: Entry): Observable<Entry> {
+    // Limitação do Angular In Memory Database, necessário realizar relacionamento.
+    this.loadCategoryById(entry);
+
     return this.http.post(this.API, entry).pipe(catchError(EntryService.handleError), map(EntryService.assignJsonDataToEntry));
   }
 
@@ -50,7 +56,19 @@ export class EntryService {
   }
 
   update(entry: Entry): Observable<Entry> {
+    this.loadCategoryById(entry);
+
     return this.http.put(this.API, entry).pipe(catchError(EntryService.handleError), map(() => entry));
   }
 
+  /**
+   * Necessário fazer relacionamento entre Category e Entry pela limitação da biblioteca Angular In Memory Database.
+   * @param entry Objeto utilizado na criação do relacionamento Entry x Category
+   * @private
+   */
+  private loadCategoryById(entry: Entry): void {
+    this.categoryService
+      .getById(entry.categoryId)
+      .subscribe((category) => entry.category = category);
+  }
 }
