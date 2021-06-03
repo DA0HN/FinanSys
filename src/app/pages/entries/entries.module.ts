@@ -6,6 +6,8 @@ import {EntryService} from './shared';
 import {EntryListComponent} from './entry-list';
 import {EntryFormComponent} from '@/app/pages/entries/entry-form';
 import {ReactiveFormsModule} from '@angular/forms';
+import {CalendarModule} from 'primeng/calendar';
+import {IMaskModule} from 'angular-imask';
 
 
 @NgModule({
@@ -16,7 +18,9 @@ import {ReactiveFormsModule} from '@angular/forms';
   imports: [
     CommonModule,
     EntriesRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CalendarModule,
+    IMaskModule,
   ],
   providers: [
     EntryService
