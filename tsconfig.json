@@ -3,10 +3,11 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./src",
-    "rootDir":"./src",
+    "rootDir": "./src",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
+    "allowSyntheticDefaultImports": true,
     "downlevelIteration": true,
     "experimentalDecorators": true,
     "moduleResolution": "node",
@@ -14,7 +15,9 @@
     "target": "es2015",
     "module": "es2020",
     "paths": {
-      "@/*": ["*"]
+      "@/*": [
+        "*"
+      ]
     },
     "lib": [
       "es2018",
