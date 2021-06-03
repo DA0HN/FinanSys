@@ -5,6 +5,6 @@ aprimorar as habilidades em Angular.
 
 ## Telas
 
-|Home page                             |Recovered page                                  |
-|--------------------------------------|------------------------------------------------|
+|Listagem de categoria                                |Edição de categoria                                    |
+|-----------------------------------------------------|-------------------------------------------------------|
 |![lista-categoria.png](./imagens/lista-categoria.png)|![editar-categoria.png](./imagens/editar-categoria.png)|
