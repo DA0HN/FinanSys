@@ -110,8 +110,22 @@
           </div>
         </div>
 
+        <!--categoryId-->
+        <div class="form-group col-md-2">
+          <label for="categoryId">Categoria</label>
+          <select name="categoryId" id="categoryId" formControlName="categoryId" class="form-control">
+            <option value="1">Categoria 1</option>
+            <option value="2">Categoria 2</option>
+          </select>
+          <div class="text-danger" *ngIf="entryForm.get('categoryId').invalid && entryForm.get('categoryId').touched">
+            <div *ngIf="entryForm.get('categoryId').errors.required">
+              Dado obrigatório
+            </div>
+          </div>
+        </div>
+
         <!--description-->
-        <div class="form-group col-md-8">
+        <div class="form-group col-md-7">
           <label for="description" class="col-auto">Descrição</label>
           <input type="text" class="form-control" id="description" formControlName="description">
         </div>
