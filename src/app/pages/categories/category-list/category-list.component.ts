@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Category, CategoryService} from '../shared';
+import {Category, CategoryService} from '@/app/pages/categories/shared';
 
 @Component({
   selector: 'app-category-list',
@@ -21,7 +21,7 @@ export class CategoryListComponent implements OnInit {
   }
 
   deleteCategory(category: Category): void {
-    const mustDelete = confirm('Vocẽ realmente deseja excluir este item?');
+    const mustDelete = confirm('Você realmente deseja excluir este item?');
 
     if (mustDelete) {
       this.categoryService.delete(category).subscribe(
