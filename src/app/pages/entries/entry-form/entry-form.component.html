@@ -68,6 +68,26 @@
             <div *ngIf="entryForm.get('amount').errors.required">Dado obrigatório</div>
           </div>
         </div>
+
+        <!--date-->
+        <div class="form-group col-md-2">
+          <label for="date" class="col-auto">Data</label>
+
+          <p-calendar
+              id="date"
+              formControlName="date"
+              inputStyleClass="form-control"
+              dataType="string"
+              dateFormat="dd/mm/yy"
+              [locale]="ptBr"
+              [showButtonBar]="true"
+          >
+
+          </p-calendar>
+          <div class="text-danger" *ngIf="entryForm.get('date').invalid && entryForm.get('date').touched">
+            <div *ngIf="entryForm.get('date').errors.required">Dado obrigatório</div>
+          </div>
+        </div>
       </div>
 
       <div class="form-row">
