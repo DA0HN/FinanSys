@@ -5,6 +5,7 @@ import {CategoriesRoutingModule} from './categories-routing.module';
 import {CategoryListComponent} from './category-list';
 import {CategoryFormComponent} from './category-form';
 import {CategoryService} from './shared';
+import {ReactiveFormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import {CategoryService} from './shared';
   imports: [
     CommonModule,
     CategoriesRoutingModule,
+    ReactiveFormsModule
   ],
   providers: [
     CategoryService,
