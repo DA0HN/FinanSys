@@ -38,6 +38,9 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "toastr"
+            ],
             "outputPath": "dist/finansys",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -49,9 +52,18 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/toastr/build/toastr.css",
+              "node_modules/primeicons/primeicons.css",
+              "node_modules/primeng/resources/themes/nova/theme.css",
+              "node_modules/primeng/resources/primeng.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.min.js",
+              "node_modules/chart.js/dist/Chart.bundle.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -144,6 +156,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "finansys"
+    }
+  },
+  "defaultProject": "finansys",
+  "cli": {
+    "analytics": false
+  }
 }
