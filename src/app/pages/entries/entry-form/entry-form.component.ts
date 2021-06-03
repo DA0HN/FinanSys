@@ -4,6 +4,7 @@ import {Entry, EntryService} from '@/app/pages/entries/shared';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {switchMap} from 'rxjs/operators';
 import toastr from 'toastr';
+import {Category, CategoryService} from '@/app/pages/categories/shared';
 
 interface EntryTypeOption {
   field: string;
@@ -24,6 +25,8 @@ export class EntryFormComponent implements OnInit, AfterContentChecked {
   submittingForm = false;
 
   entry = new Entry();
+
+  categories: Category[];
 
   numberMaskConfig = {
     mask: Number,
@@ -51,6 +54,7 @@ export class EntryFormComponent implements OnInit, AfterContentChecked {
 
 
   constructor(private entryService: EntryService,
+              private categoryService: CategoryService,
               private route: ActivatedRoute,
               private router: Router,
               private formBuilder: FormBuilder,
@@ -61,6 +65,7 @@ export class EntryFormComponent implements OnInit, AfterContentChecked {
     this.setCurrentAction();
     this.buildEntryForm();
     this.loadEntry();
+    this.loadCategories();
   }
 
   /**
@@ -199,5 +204,11 @@ export class EntryFormComponent implements OnInit, AfterContentChecked {
     } else {
       this.serverErrorMessages = ['Falha na comunicação com o servidor. Por favor, tente mais tarde.'];
     }
+  }
+
+  private loadCategories(): void {
+    this.categoryService.getAll().subscribe(data => {
+      this.categories = data;
+    });
   }
 }
