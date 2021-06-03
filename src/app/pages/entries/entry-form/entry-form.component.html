@@ -91,7 +91,27 @@
       </div>
 
       <div class="form-row">
-        <div class="form-group col-md-4">
+
+        <!--paid-->
+        <div class="form-group col-md-3">
+          <label class="col-auto">Pago</label>
+
+          <div class="btn-group">
+            <label (click)="entryForm.get('paid').setValue(true)"
+                   [class.active]="entryForm.get('paid').value === true"
+                   class="btn btn-outline-info">Pago</label>
+            <label (click)="entryForm.get('paid').setValue(false)"
+                   [class.active]="entryForm.get('paid').value === false"
+                   class="btn btn-outline-danger">Pendente</label>
+          </div>
+
+          <div class="text-danger" *ngIf="entryForm.get('paid').invalid && entryForm.get('paid').touched">
+            <div *ngIf="entryForm.get('paid').errors.required">Dado obrigatório</div>
+          </div>
+        </div>
+
+        <!--description-->
+        <div class="form-group col-md-8">
           <label for="description" class="col-auto">Descrição</label>
           <input type="text" class="form-control" id="description" formControlName="description">
         </div>
