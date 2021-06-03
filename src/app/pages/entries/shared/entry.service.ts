@@ -14,8 +14,17 @@ export class EntryService {
 
   private readonly API: string = '/api/entries';
 
-  private static jsonDataToEntry(jsonData: any): Entry {
-    return jsonData as Entry;
+  private static assignJsonDataToEntry(jsonData: any): Entry {
+    return Object.assign(new Entry(), jsonData);
+  }
+
+  private static jsonDataToEntries(jsonData: any[]): Entry[] {
+    const entries: Entry[] = [];
+    jsonData.forEach(data => {
+      const entryAssigned = EntryService.assignJsonDataToEntry(data);
+      entries.push(entryAssigned);
+    });
+    return entries;
   }
 
   private static handleError(error: any): Observable<any> {
@@ -24,16 +33,16 @@ export class EntryService {
   }
 
   getAll(): Observable<Entry[]> {
-    return this.http.get<Entry[]>(this.API).pipe(catchError(EntryService.handleError), map(this.jsonDataToEntries));
+    return this.http.get<Entry[]>(this.API).pipe(catchError(EntryService.handleError), map(EntryService.jsonDataToEntries));
   }
 
   getById(id: number): Observable<Entry> {
     const url = `${this.API}/${id}`;
-    return this.http.get<Entry[]>(url).pipe(catchError(EntryService.handleError), map(EntryService.jsonDataToEntry));
+    return this.http.get<Entry[]>(url).pipe(catchError(EntryService.handleError), map(EntryService.assignJsonDataToEntry));
   }
 
   create(entry: Entry): Observable<Entry> {
-    return this.http.post(this.API, entry).pipe(catchError(EntryService.handleError), map(EntryService.jsonDataToEntry));
+    return this.http.post(this.API, entry).pipe(catchError(EntryService.handleError), map(EntryService.assignJsonDataToEntry));
   }
 
   delete(entry: Entry): Observable<Entry> {
@@ -42,12 +51,6 @@ export class EntryService {
 
   update(entry: Entry): Observable<Entry> {
     return this.http.put(this.API, entry).pipe(catchError(EntryService.handleError), map(() => entry));
-  }
-
-  private jsonDataToEntries(jsonData: any[]): Entry[] {
-    const entries: Entry[] = [];
-    jsonData.forEach(data => entries.push(data as Entry));
-    return entries;
   }
 
 }
