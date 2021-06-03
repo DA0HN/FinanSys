@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {CategoryFormComponent, CategoryListComponent} from '@/app/pages';
+import {CategoryListComponent} from './category-list';
+import {CategoryFormComponent} from './category-form';
 
 const routes: Routes = [
   {
