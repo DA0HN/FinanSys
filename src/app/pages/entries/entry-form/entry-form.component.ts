@@ -25,7 +25,7 @@ export class EntryFormComponent implements OnInit, AfterContentChecked {
 
   entry = new Entry();
 
-  imaskConfig = {
+  numberMaskConfig = {
     mask: Number,
     scale: 2,
     thousandsSeparator: '',
