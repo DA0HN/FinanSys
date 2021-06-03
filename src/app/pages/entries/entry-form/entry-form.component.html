@@ -7,12 +7,12 @@
 </nav>
 
 <div class="row mb-4">
-  <div class="col-md">
+  <div class="col-md-9">
     <h1 class="h2 border-left pl-2">
       {{pageTitle}}
     </h1>
   </div>
-  <div class="col-md">
+  <div class="col-md-3">
     <a class="btn btn-light float-right" routerLink="/entries">
       << Voltar
     </a>
@@ -27,17 +27,36 @@
     </div>
 
     <div class="card-body">
-      <div class="form-row">
-        <div class="form-group col-md-4">
-          <label for="name" class="col-auto">Nome</label>
-          <input type="text" class="form-control" id="name" formControlName="name">
 
+      <div class="form-row">
+
+        <!--type-->
+        <div class="form-group col-md-3">
+          <label for="type">Tipo</label>
+          <select name="type" id="type" formControlName="type" class="form-control">
+            <option value="expense">Despesa</option>
+            <option value="revenue">Receita</option>
+          </select>
+          <div class="text-danger" *ngIf="entryForm.get('type').invalid && entryForm.get('type').touched">
+            <div *ngIf="entryForm.get('type').errors.required">
+              Dado obrigatório
+            </div>
+          </div>
+        </div>
+
+        <!--name-->
+        <div class="form-group col-md-5">
+          <label for="name" class="col-auto">Lançamento</label>
+          <input type="text" class="form-control" id="name" formControlName="name">
           <div class="text-danger" *ngIf="entryForm.get('name').invalid && entryForm.get('name').touched">
             <div *ngIf="entryForm.get('name').errors.required">Dado obrigatório</div>
             <div *ngIf="entryForm.get('name').errors.minlength">Deve ter no mínimo 2 caracteres</div>
           </div>
         </div>
-        <div class="form-group col-md-8">
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-4">
           <label for="description" class="col-auto">Descrição</label>
           <input type="text" class="form-control" id="description" formControlName="description">
         </div>
