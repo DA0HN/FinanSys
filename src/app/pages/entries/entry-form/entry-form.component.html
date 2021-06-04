@@ -92,8 +92,8 @@
       <div class="form-row">
 
         <!--paid-->
-        <div class="form-group col-md-3">
-          <label class="col-auto">Pago</label>
+        <div class="form-group col-md-2 float-left">
+          <label class="col-md-auto">Pago</label>
 
           <div class="btn-group">
             <label (click)="entryForm.get('paid').setValue(true)"
@@ -110,8 +110,8 @@
         </div>
 
         <!--categoryId-->
-        <div class="form-group col-md-2">
-          <label for="categoryId">Categoria</label>
+        <div class="form-group col-md-2 float-right">
+          <label for="categoryId" class="col-md-auto">Categoria</label>
           <select name="categoryId" id="categoryId" formControlName="categoryId" class="form-control">
             <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
           </select>
@@ -124,7 +124,7 @@
 
         <!--description-->
         <div class="form-group col-md-7">
-          <label for="description" class="col-auto">Descrição</label>
+          <label for="description">Descrição</label>
           <input type="text" class="form-control" id="description" formControlName="description">
         </div>
       </div>
