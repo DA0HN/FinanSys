@@ -1,6 +1,6 @@
 import {HttpClient} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
-import {catchError, map} from 'rxjs/operators';
+import {catchError, map, mergeMap} from 'rxjs/operators';
 import {Injectable} from '@angular/core';
 import {Entry} from '@/app/pages/entries/shared/entry.model';
 import {CategoryService} from '@/app/pages/categories/shared';
@@ -46,9 +46,10 @@ export class EntryService {
 
   create(entry: Entry): Observable<Entry> {
     // Limitação do Angular In Memory Database, necessário realizar relacionamento.
-    this.loadCategoryById(entry);
-
-    return this.http.post(this.API, entry).pipe(catchError(EntryService.handleError), map(EntryService.assignJsonDataToEntry));
+    return this.createRelationshipWithCategoryAndThenExecuteRequest(
+      entry,
+      () => this.http.post(this.API, entry).pipe(catchError(EntryService.handleError), map(EntryService.assignJsonDataToEntry))
+    );
   }
 
   delete(entry: Entry): Observable<Entry> {
@@ -56,19 +57,31 @@ export class EntryService {
   }
 
   update(entry: Entry): Observable<Entry> {
-    this.loadCategoryById(entry);
+    // Limitação do Angular In Memory Database, necessário realizar relacionamento.
+    return this.createRelationshipWithCategoryAndThenExecuteRequest(
+      entry,
+      () => this.http.put(this.API, entry).pipe(catchError(EntryService.handleError), map(() => entry))
+    );
 
-    return this.http.put(this.API, entry).pipe(catchError(EntryService.handleError), map(() => entry));
   }
 
   /**
    * Necessário fazer relacionamento entre Category e Entry pela limitação da biblioteca Angular In Memory Database.
-   * @param entry Objeto utilizado na criação do relacionamento Entry x Category
+   * @param entry Objeto utilizado na criação do relacionamento Entry x Category.
+   * @param executeRequest Ação que será executada após a criação do relacionamento.
    * @private
    */
-  private loadCategoryById(entry: Entry): void {
-    this.categoryService
+  private createRelationshipWithCategoryAndThenExecuteRequest(
+    entry: Entry,
+    executeRequest: (entry: Entry) => Observable<Entry>
+  ): Observable<Entry> {
+    return this.categoryService
       .getById(entry.categoryId)
-      .subscribe((category) => entry.category = category);
+      .pipe(mergeMap(category => {
+          entry.category = category;
+
+          return executeRequest(entry);
+        }
+      ));
   }
 }
