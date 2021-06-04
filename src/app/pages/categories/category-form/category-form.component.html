@@ -19,7 +19,7 @@
   </div>
 </div>
 
-<form [formGroup]="categoryForm" (submit)="submitForm()">
+<form (submit)="submitForm()" [formGroup]="categoryForm">
 
   <div class="card">
     <div class="card-header">
@@ -29,23 +29,23 @@
     <div class="card-body">
       <div class="form-row">
         <div class="form-group col-md-4">
-          <label for="name" class="col-auto">Nome</label>
-          <input type="text" class="form-control" id="name" formControlName="name">
+          <label class="col-auto" for="name">Nome</label>
+          <input class="form-control" formControlName="name" id="name" type="text">
 
-          <div class="text-danger" *ngIf="categoryForm.get('name').invalid && categoryForm.get('name').touched">
+          <div *ngIf="categoryForm.get('name').invalid && categoryForm.get('name').touched" class="text-danger">
             <div *ngIf="categoryForm.get('name').errors.required">Dado obrigatório</div>
             <div *ngIf="categoryForm.get('name').errors.minlength">Deve ter no mínimo 2 caracteres</div>
           </div>
         </div>
         <div class="form-group col-md-8">
-          <label for="description" class="col-auto">Descrição</label>
-          <input type="text" class="form-control" id="description" formControlName="description">
+          <label class="col-auto" for="description">Descrição</label>
+          <input class="form-control" formControlName="description" id="description" type="text">
         </div>
       </div>
     </div>
   </div>
 
-  <div class="alert alert-danger mt-4" *ngIf="serverErrorMessages">
+  <div *ngIf="serverErrorMessages" class="alert alert-danger mt-4">
     <strong>Erro no servidor:</strong>
     <ul>
       <li *ngFor="let error of serverErrorMessages">
@@ -55,8 +55,8 @@
   </div>
 
   <button [disabled]="submittingForm || categoryForm.invalid"
-          type="submit"
-          class="btn btn-primary btn-lg float-right mt-3 ">
+          class="btn btn-primary btn-lg float-right mt-3 "
+          type="submit">
     Salvar
   </button>
 

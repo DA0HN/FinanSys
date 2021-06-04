@@ -1,10 +1,11 @@
 import {AfterContentChecked, Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Entry, EntryService} from '@/app/pages/entries/shared';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {switchMap} from 'rxjs/operators';
 import toastr from 'toastr';
-import {Category, CategoryService} from '@/app/pages/categories/shared';
+import {EntryService} from '../shared/entry.service';
+import {Entry} from '../shared/entry.model';
+import {Category, CategoryService} from '@finan$ys/pages/categories/shared';
 
 interface EntryTypeOption {
   field: string;
@@ -61,6 +62,15 @@ export class EntryFormComponent implements OnInit, AfterContentChecked {
   ) {
   }
 
+  get typeOptions(): Array<EntryTypeOption> {
+    return Object.entries(Entry.types).map(([field, text]) => {
+      return {
+        field,
+        text,
+      } as EntryTypeOption;
+    });
+  }
+
   ngOnInit(): void {
     this.setCurrentAction();
     this.buildEntryForm();
@@ -83,15 +93,6 @@ export class EntryFormComponent implements OnInit, AfterContentChecked {
     } else {
       this.updateEntry();
     }
-  }
-
-  get typeOptions(): Array<EntryTypeOption> {
-    return Object.entries(Entry.types).map(([field, text]) => {
-      return {
-        field,
-        text,
-      } as EntryTypeOption;
-    });
   }
 
   private setCurrentAction(): void {

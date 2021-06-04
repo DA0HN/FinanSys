@@ -2,20 +2,20 @@ import {HttpClient} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {catchError, map, mergeMap} from 'rxjs/operators';
 import {Injectable} from '@angular/core';
-import {Entry} from '@/app/pages/entries/shared/entry.model';
-import {CategoryService} from '@/app/pages/categories/shared';
+import {CategoryService} from '@finan$ys/pages/categories/shared';
+import {Entry} from './entry.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EntryService {
 
+  private readonly API: string = '/api/entries';
+
   constructor(private http: HttpClient,
               private categoryService: CategoryService
   ) {
   }
-
-  private readonly API: string = '/api/entries';
 
   private static assignJsonDataToEntry(jsonData: any): Entry {
     return Object.assign(new Entry(), jsonData);

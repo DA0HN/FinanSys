@@ -9,10 +9,10 @@ import {Category} from './category.model';
 })
 export class CategoryService {
 
+  private readonly API: string = '/api/categories';
+
   constructor(private http: HttpClient) {
   }
-
-  private readonly API: string = '/api/categories';
 
   private static jsonDataToCategory(jsonData: any): Category {
     return jsonData as Category;

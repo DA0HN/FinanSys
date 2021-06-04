@@ -19,8 +19,8 @@
   <tr class="bg-primary text-light">
     <th scope="col">Lançamento</th>
     <th scope="col">Categoria</th>
-    <th scope="col" class="text-right">Valor R$</th>
-    <th scope="col" class="text-center">Ações</th>
+    <th class="text-right" scope="col">Valor R$</th>
+    <th class="text-center" scope="col">Ações</th>
   </tr>
   </thead>
   <tbody>
@@ -34,8 +34,8 @@
       <strong>{{entry.category.name}}</strong>
     </td>
     <td class="text-right">
-      <strong [class.text-success]="entry.type === 'revenue'"
-              [class.text-danger]="entry.type === 'expense'">
+      <strong [class.text-danger]="entry.type === 'expense'"
+              [class.text-success]="entry.type === 'revenue'">
         {{entry.amount}}
       </strong>
       <br>

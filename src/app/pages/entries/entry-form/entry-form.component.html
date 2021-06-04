@@ -19,7 +19,7 @@
   </div>
 </div>
 
-<form [formGroup]="entryForm" (submit)="submitForm()">
+<form (submit)="submitForm()" [formGroup]="entryForm">
 
   <div class="card">
     <div class="card-header">
@@ -33,10 +33,10 @@
         <!--type-->
         <div class="form-group col-md-4">
           <label for="type">Tipo</label>
-          <select name="type" id="type" formControlName="type" class="form-control">
+          <select class="form-control" formControlName="type" id="type" name="type">
             <option *ngFor="let option of typeOptions" [value]="option.field">{{option.text}}</option>
           </select>
-          <div class="text-danger" *ngIf="entryForm.get('type').invalid && entryForm.get('type').touched">
+          <div *ngIf="entryForm.get('type').invalid && entryForm.get('type').touched" class="text-danger">
             <div *ngIf="entryForm.get('type').errors.required">
               Dado obrigatório
             </div>
@@ -46,10 +46,10 @@
         <!--categoryId-->
         <div class="form-group col-md-4 float-right">
           <label for="categoryId">Categoria</label>
-          <select name="categoryId" id="categoryId" formControlName="categoryId" class="form-control">
+          <select class="form-control" formControlName="categoryId" id="categoryId" name="categoryId">
             <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
           </select>
-          <div class="text-danger" *ngIf="entryForm.get('categoryId').invalid && entryForm.get('categoryId').touched">
+          <div *ngIf="entryForm.get('categoryId').invalid && entryForm.get('categoryId').touched" class="text-danger">
             <div *ngIf="entryForm.get('categoryId').errors.required">
               Dado obrigatório
             </div>
@@ -69,7 +69,7 @@
                    class="btn btn-outline-danger">Pendente</label>
           </div>
 
-          <div class="text-danger" *ngIf="entryForm.get('paid').invalid && entryForm.get('paid').touched">
+          <div *ngIf="entryForm.get('paid').invalid && entryForm.get('paid').touched" class="text-danger">
             <div *ngIf="entryForm.get('paid').errors.required">Dado obrigatório</div>
           </div>
         </div>
@@ -79,23 +79,23 @@
         <!--name-->
         <div class="form-group col-md-6">
           <label for="name">Lançamento</label>
-          <input type="text" class="form-control" id="name" formControlName="name">
-          <div class="text-danger" *ngIf="entryForm.get('name').invalid && entryForm.get('name').touched">
+          <input class="form-control" formControlName="name" id="name" type="text">
+          <div *ngIf="entryForm.get('name').invalid && entryForm.get('name').touched" class="text-danger">
             <div *ngIf="entryForm.get('name').errors.required">Dado obrigatório</div>
             <div *ngIf="entryForm.get('name').errors.minlength">Deve ter no mínimo 2 caracteres</div>
           </div>
         </div>
         <!--amount-->
         <div class="form-group col-md-2">
-          <label for="amount" class="align-content-around">Valor</label>
+          <label class="align-content-around" for="amount">Valor</label>
           <div class="input-group">
             <div class="input-group-prepend">
               <div class="input-group-text">R$</div>
             </div>
-            <input [imask]="numberMaskConfig" type="text" class="form-control text-right" id="amount"
-                   formControlName="amount">
+            <input [imask]="numberMaskConfig" class="form-control text-right" formControlName="amount" id="amount"
+                   type="text">
           </div>
-          <div class="text-danger" *ngIf="entryForm.get('amount').invalid && entryForm.get('amount').touched">
+          <div *ngIf="entryForm.get('amount').invalid && entryForm.get('amount').touched" class="text-danger">
             <div *ngIf="entryForm.get('amount').errors.required">Dado obrigatório</div>
           </div>
         </div>
@@ -104,17 +104,17 @@
         <div class="form-group col-sm-2">
           <label for="date">Data</label>
           <p-calendar
-              id="date"
-              formControlName="date"
-              inputStyleClass="form-control"
-              dataType="string"
-              dateFormat="dd/mm/yy"
               [locale]="ptBr"
               [showButtonBar]="true"
+              dataType="string"
+              dateFormat="dd/mm/yy"
+              formControlName="date"
+              id="date"
+              inputStyleClass="form-control"
           >
 
           </p-calendar>
-          <div class="text-danger" *ngIf="entryForm.get('date').invalid && entryForm.get('date').touched">
+          <div *ngIf="entryForm.get('date').invalid && entryForm.get('date').touched" class="text-danger">
             <div *ngIf="entryForm.get('date').errors.required">Dado obrigatório</div>
           </div>
         </div>
@@ -124,7 +124,7 @@
         <!--description-->
         <div class="form-group col-md-12">
           <label for="description">Descrição</label>
-          <input type="text" class="form-control" id="description" formControlName="description">
+          <input class="form-control" formControlName="description" id="description" type="text">
         </div>
       </div>
 
@@ -132,7 +132,7 @@
 
   </div>
 
-  <div class="alert alert-danger mt-4" *ngIf="serverErrorMessages">
+  <div *ngIf="serverErrorMessages" class="alert alert-danger mt-4">
     <strong>Erro no servidor:</strong>
     <ul>
       <li *ngFor="let error of serverErrorMessages">
@@ -142,8 +142,8 @@
   </div>
 
   <button [disabled]="submittingForm || entryForm.invalid"
-          type="submit"
-          class="btn btn-primary btn-lg float-right mt-3 ">
+          class="btn btn-primary btn-lg float-right mt-3 "
+          type="submit">
     Salvar
   </button>
 </form>

@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {Entry, EntryService} from '@/app/pages/entries';
+import {Entry} from '../shared/entry.model';
+import {EntryService} from '@finan$ys/pages/entries/shared';
 
 @Component({
   selector: 'app-category-list',

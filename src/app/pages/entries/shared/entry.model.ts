@@ -1,6 +1,11 @@
-import {Category} from '@/app/pages/categories/shared';
+import {Category} from '@finan$ys/pages/categories/shared';
 
 export class Entry {
+  static types = {
+    expense: 'Despesa',
+    revenue: 'Receita'
+  };
+
   constructor(
     public id?: number,
     public name?: string,
@@ -13,11 +18,6 @@ export class Entry {
     public category?: Category
   ) {
   }
-
-  static types = {
-    expense: 'Despesa',
-    revenue: 'Receita'
-  };
 
   get paidText(): string {
     return this.paid ? 'Pago' : 'Pendente';
