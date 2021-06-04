@@ -1,9 +1,9 @@
-import {AfterContentChecked, Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {switchMap} from 'rxjs/operators';
+import { AfterContentChecked, Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { switchMap } from 'rxjs/operators';
 import toastr from 'toastr';
-import {Category, CategoryService} from '@finan$ys/pages/categories/shared';
+import { Category, CategoryService } from '@finan$ys/pages/categories/shared';
 
 
 @Component({

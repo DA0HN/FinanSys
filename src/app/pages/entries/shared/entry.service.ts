@@ -1,9 +1,9 @@
-import {HttpClient} from '@angular/common/http';
-import {Observable, throwError} from 'rxjs';
-import {catchError, map, mergeMap} from 'rxjs/operators';
-import {Injectable} from '@angular/core';
-import {CategoryService} from '@finan$ys/pages/categories/shared';
-import {Entry} from './entry.model';
+import { HttpClient } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError, map, mergeMap } from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { CategoryService } from '@finan$ys/pages/categories/shared';
+import { Entry } from './entry.model';
 
 @Injectable({
   providedIn: 'root'

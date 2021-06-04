@@ -1,4 +1,4 @@
-import {Category} from '@finan$ys/pages/categories/shared';
+import { Category } from '@finan$ys/pages/categories/shared';
 
 export class Entry {
   static types = {

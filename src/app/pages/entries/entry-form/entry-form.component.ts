@@ -1,11 +1,11 @@
-import {AfterContentChecked, Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {switchMap} from 'rxjs/operators';
+import { AfterContentChecked, Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { switchMap } from 'rxjs/operators';
 import toastr from 'toastr';
-import {EntryService} from '../shared/entry.service';
-import {Entry} from '../shared/entry.model';
-import {Category, CategoryService} from '@finan$ys/pages/categories/shared';
+import { EntryService } from '../shared/entry.service';
+import { Entry } from '../shared/entry.model';
+import { Category, CategoryService } from '@finan$ys/pages/categories/shared';
 
 interface EntryTypeOption {
   field: string;
