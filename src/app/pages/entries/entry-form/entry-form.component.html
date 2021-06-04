@@ -31,7 +31,7 @@
       <div class="form-row">
 
         <!--type-->
-        <div class="form-group col-md-3">
+        <div class="form-group col-md-4">
           <label for="type">Tipo</label>
           <select name="type" id="type" formControlName="type" class="form-control">
             <option *ngFor="let option of typeOptions" [value]="option.field">{{option.text}}</option>
@@ -43,19 +43,51 @@
           </div>
         </div>
 
+        <!--categoryId-->
+        <div class="form-group col-md-4 float-right">
+          <label for="categoryId">Categoria</label>
+          <select name="categoryId" id="categoryId" formControlName="categoryId" class="form-control">
+            <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
+          </select>
+          <div class="text-danger" *ngIf="entryForm.get('categoryId').invalid && entryForm.get('categoryId').touched">
+            <div *ngIf="entryForm.get('categoryId').errors.required">
+              Dado obrigatório
+            </div>
+          </div>
+        </div>
+
+        <!--paid-->
+        <div class="form-group col-md-2">
+          <label>Pago</label>
+
+          <div class="btn-group">
+            <label (click)="entryForm.get('paid').setValue(true)"
+                   [class.active]="entryForm.get('paid').value === true"
+                   class="btn col-auto btn-outline-info">Pago</label>
+            <label (click)="entryForm.get('paid').setValue(false)"
+                   [class.active]="entryForm.get('paid').value === false"
+                   class="btn btn-outline-danger">Pendente</label>
+          </div>
+
+          <div class="text-danger" *ngIf="entryForm.get('paid').invalid && entryForm.get('paid').touched">
+            <div *ngIf="entryForm.get('paid').errors.required">Dado obrigatório</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
         <!--name-->
-        <div class="form-group col-md-5">
-          <label for="name" class="col-auto">Lançamento</label>
+        <div class="form-group col-md-6">
+          <label for="name">Lançamento</label>
           <input type="text" class="form-control" id="name" formControlName="name">
           <div class="text-danger" *ngIf="entryForm.get('name').invalid && entryForm.get('name').touched">
             <div *ngIf="entryForm.get('name').errors.required">Dado obrigatório</div>
             <div *ngIf="entryForm.get('name').errors.minlength">Deve ter no mínimo 2 caracteres</div>
           </div>
         </div>
-
         <!--amount-->
-        <div class="form-group col-md-3">
-          <label for="amount" class="col-auto">Valor</label>
+        <div class="form-group col-md-2">
+          <label for="amount" class="align-content-around">Valor</label>
           <div class="input-group">
             <div class="input-group-prepend">
               <div class="input-group-text">R$</div>
@@ -69,9 +101,8 @@
         </div>
 
         <!--date-->
-        <div class="form-group col-md-2">
-          <label for="date" class="col-auto">Data</label>
-
+        <div class="form-group col-sm-2">
+          <label for="date">Data</label>
           <p-calendar
               id="date"
               formControlName="date"
@@ -90,45 +121,15 @@
       </div>
 
       <div class="form-row">
-
-        <!--paid-->
-        <div class="form-group col-md-2 float-left">
-          <label class="col-md-auto">Pago</label>
-
-          <div class="btn-group">
-            <label (click)="entryForm.get('paid').setValue(true)"
-                   [class.active]="entryForm.get('paid').value === true"
-                   class="btn btn-outline-info">Pago</label>
-            <label (click)="entryForm.get('paid').setValue(false)"
-                   [class.active]="entryForm.get('paid').value === false"
-                   class="btn btn-outline-danger">Pendente</label>
-          </div>
-
-          <div class="text-danger" *ngIf="entryForm.get('paid').invalid && entryForm.get('paid').touched">
-            <div *ngIf="entryForm.get('paid').errors.required">Dado obrigatório</div>
-          </div>
-        </div>
-
-        <!--categoryId-->
-        <div class="form-group col-md-2 float-right">
-          <label for="categoryId" class="col-md-auto">Categoria</label>
-          <select name="categoryId" id="categoryId" formControlName="categoryId" class="form-control">
-            <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
-          </select>
-          <div class="text-danger" *ngIf="entryForm.get('categoryId').invalid && entryForm.get('categoryId').touched">
-            <div *ngIf="entryForm.get('categoryId').errors.required">
-              Dado obrigatório
-            </div>
-          </div>
-        </div>
-
         <!--description-->
-        <div class="form-group col-md-7">
+        <div class="form-group col-md-12">
           <label for="description">Descrição</label>
           <input type="text" class="form-control" id="description" formControlName="description">
         </div>
       </div>
+
     </div>
+
   </div>
 
   <div class="alert alert-danger mt-4" *ngIf="serverErrorMessages">
