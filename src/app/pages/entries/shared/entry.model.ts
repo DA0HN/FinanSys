@@ -1,6 +1,7 @@
 import { Category } from '@finan$ys/pages/categories/shared';
+import { BaseResourceModel } from '@finan$ys/shared/models/base-resource.model';
 
-export class Entry {
+export class Entry extends BaseResourceModel {
   static types = {
     expense: 'Despesa',
     revenue: 'Receita'
@@ -17,6 +18,7 @@ export class Entry {
     public categoryId?: number,
     public category?: Category
   ) {
+    super();
   }
 
   get paidText(): string {
