@@ -16,10 +16,11 @@ export class EntryService extends BaseResourceService<Entry> {
   ) {
     super('/api/entries', injector);
   }
+
   protected jsonDataToResources(jsonData: any[]): Entry[] {
     const entries: Entry[] = [];
     jsonData.forEach(data => {
-      const entryAssigned = Object.assign(new Entry(), data);
+      const entryAssigned = Entry.from(data);
       entries.push(entryAssigned);
     });
     return entries;

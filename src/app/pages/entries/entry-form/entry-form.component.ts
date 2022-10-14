@@ -144,10 +144,7 @@ export class EntryFormComponent implements OnInit, AfterContentChecked {
   }
 
   private createEntry(): void {
-    const newEntry = Object.assign(
-      new Entry(),
-      this.entryForm.value
-    );
+    const newEntry = Entry.from(this.entryForm.value);
 
     this.entryService
       .create(newEntry)
@@ -158,10 +155,7 @@ export class EntryFormComponent implements OnInit, AfterContentChecked {
   }
 
   private updateEntry(): void {
-    const updatedEntry = Object.assign(
-      new Entry(),
-      this.entryForm.value
-    );
+    const updatedEntry = Entry.from(this.entryForm.value);
 
     this.entryService
       .update(updatedEntry)

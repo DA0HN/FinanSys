@@ -4,7 +4,7 @@ import { BaseResourceModel } from '@finan$ys/shared/models/base-resource.model';
 export class Entry extends BaseResourceModel {
   static types = {
     expense: 'Despesa',
-    revenue: 'Receita'
+    revenue: 'Receita',
   };
 
   constructor(
@@ -16,7 +16,7 @@ export class Entry extends BaseResourceModel {
     public date?: string,
     public paid?: boolean,
     public categoryId?: number,
-    public category?: Category
+    public category?: Category,
   ) {
     super();
   }
@@ -24,4 +24,9 @@ export class Entry extends BaseResourceModel {
   get paidText(): string {
     return this.paid ? 'Pago' : 'Pendente';
   }
+
+  static from(json: any): Entry {
+    return Object.assign(new Entry(), json);
+  }
+
 }
