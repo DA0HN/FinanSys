@@ -8,7 +8,11 @@ import { BaseResourceService } from '@finan$ys/shared/services/base-resource.ser
 export class CategoryService extends BaseResourceService<Category> {
 
   constructor(protected injector: Injector) {
-    super('/api/categories', injector);
+    super(
+      '/api/categories',
+      injector,
+      Category.from
+    );
   }
 
 }

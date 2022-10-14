@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { mergeMap } from 'rxjs/operators';
+import { catchError, mergeMap } from 'rxjs/operators';
 import { Injectable, Injector } from '@angular/core';
 import { CategoryService } from '@finan$ys/pages/categories/shared';
 import { Entry } from './entry.model';
@@ -14,29 +14,20 @@ export class EntryService extends BaseResourceService<Entry> {
     protected injector: Injector,
     private categoryService: CategoryService,
   ) {
-    super('/api/entries', injector);
-  }
-
-  protected jsonDataToResources(jsonData: any[]): Entry[] {
-    const entries: Entry[] = [];
-    jsonData.forEach(data => {
-      const entryAssigned = Entry.from(data);
-      entries.push(entryAssigned);
-    });
-    return entries;
+    super('/api/entries', injector, Entry.from);
   }
 
   create(entry: Entry): Observable<Entry> {
     return this.createRelationshipWithCategoryAndThenExecuteRequest(
       entry,
-      (processedEntry) => super.create(processedEntry),
+      super.create.bind(this),
     );
   }
 
   update(entry: Entry): Observable<Entry> {
     return this.createRelationshipWithCategoryAndThenExecuteRequest(
       entry,
-      (processedEntry) => super.update(processedEntry),
+      super.update.bind(this),
     );
 
   }
@@ -57,6 +48,6 @@ export class EntryService extends BaseResourceService<Entry> {
           entry.category = category;
           return executeRequest(entry);
         },
-      ));
+      ), catchError(super.handleError));
   }
 }
