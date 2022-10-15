@@ -17,6 +17,7 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel> imp
   protected route: ActivatedRoute;
   protected router: Router;
   protected formBuilder: FormBuilder;
+  protected resourceEditedName = '';
 
   protected constructor(
     protected injector: Injector,
@@ -76,6 +77,7 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel> imp
       ).subscribe(
         (resource) => {
           this.form.patchValue(resource);
+          this.resourceEditedName = this.form.value.name;
         },
         _ => alert('Ocorreu um erro no servidor, tente mais tarde.'),
       );

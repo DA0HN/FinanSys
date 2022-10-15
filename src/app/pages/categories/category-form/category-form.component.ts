@@ -24,7 +24,7 @@ export class CategoryFormComponent extends BaseResourceFormComponent<Category> {
   }
 
   protected editPageTitle(): string {
-    return `Editando categoria ${(this.form.value.name) || ''}`;
+    return `Editando categoria ${this.resourceEditedName}`;
   }
 
   protected buildResourceForm(): void {
