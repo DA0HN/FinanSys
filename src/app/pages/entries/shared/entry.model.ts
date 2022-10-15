@@ -1,5 +1,5 @@
 import { Category } from '@finan$ys/pages/categories/shared';
-import { BaseResourceModel } from '@finan$ys/shared/models/base-resource.model';
+import { BaseResourceModel } from '@finan$ys/shared/models';
 
 export class Entry extends BaseResourceModel {
   static types = {

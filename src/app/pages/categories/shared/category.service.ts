@@ -1,6 +1,6 @@
 import { Injectable, Injector } from '@angular/core';
 import { Category } from './category.model';
-import { BaseResourceService } from '@finan$ys/shared/services/base-resource.service';
+import { BaseResourceService } from '@finan$ys/shared/services';
 
 @Injectable({
   providedIn: 'root',

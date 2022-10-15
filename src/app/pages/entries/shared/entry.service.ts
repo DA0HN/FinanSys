@@ -3,7 +3,7 @@ import { catchError, mergeMap } from 'rxjs/operators';
 import { Injectable, Injector } from '@angular/core';
 import { CategoryService } from '@finan$ys/pages/categories/shared';
 import { Entry } from './entry.model';
-import { BaseResourceService } from '@finan$ys/shared/services/base-resource.service';
+import { BaseResourceService } from '@finan$ys/shared/services';
 
 @Injectable({
   providedIn: 'root',
