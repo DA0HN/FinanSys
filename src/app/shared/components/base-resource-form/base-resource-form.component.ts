@@ -1,4 +1,4 @@
-import { AfterContentChecked, Injector, OnInit } from '@angular/core';
+import { AfterContentChecked, Component, Injector, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { switchMap } from 'rxjs/operators';
@@ -7,6 +7,9 @@ import { BaseResourceModel } from '@finan$ys/shared/models/base-resource.model';
 import { BaseResourceService } from '@finan$ys/shared/services/base-resource.service';
 
 
+@Component({
+  template: '',
+})
 export abstract class BaseResourceFormComponent<T extends BaseResourceModel> implements OnInit, AfterContentChecked {
 
   currentAction: string;
@@ -22,7 +25,6 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel> imp
   protected constructor(
     protected injector: Injector,
     protected service: BaseResourceService<T>,
-    protected formMapper: (json) => T,
   ) {
     this.route = injector.get(ActivatedRoute);
     this.router = injector.get(Router);
@@ -57,6 +59,9 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel> imp
   protected abstract editPageTitle(): string;
 
   protected abstract buildResourceForm(): void;
+
+  protected abstract formMapper(data: any): T;
+
 
   protected setCurrentAction(): void {
     const LAST_SEGMENT_URL = 0;

@@ -16,7 +16,7 @@ export class CategoryFormComponent extends BaseResourceFormComponent<Category> {
     protected injector: Injector,
     protected categoryService: CategoryService,
   ) {
-    super(injector, categoryService, Category.from);
+    super(injector, categoryService);
   }
 
   protected newPageTitle(): string {
@@ -35,4 +35,7 @@ export class CategoryFormComponent extends BaseResourceFormComponent<Category> {
     });
   }
 
+  protected formMapper(data: any): Category {
+    return Category.from(data);
+  }
 }
