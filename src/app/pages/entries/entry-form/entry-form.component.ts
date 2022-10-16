@@ -1,9 +1,8 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import { Validators } from '@angular/forms';
-import { EntryService } from '../shared/entry.service';
-import { Entry } from '../shared/entry.model';
+import { Entry, EntryService } from '../shared';
 import { Category, CategoryService } from '@finan$ys/pages/categories/shared';
-import { BaseResourceFormComponent } from '@finan$ys/shared/components/base-resource-form';
+import { BaseResourceFormComponent } from '@finan$ys/shared/components';
 
 interface EntryTypeOption {
   field: string;
@@ -42,7 +41,6 @@ export class EntryFormComponent extends BaseResourceFormComponent<Entry> impleme
     today: 'Hoje',
     clear: 'Limpar',
   };
-
 
   constructor(
     protected injector: Injector,

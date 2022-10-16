@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Entry } from '../shared/entry.model';
-import { EntryService } from '@finan$ys/pages/entries/shared';
-import { BaseResourceListComponent } from '@finan$ys/shared/components/base-resource-list';
+import { Entry, EntryService } from '../shared';
+import { BaseResourceListComponent } from '@finan$ys/shared/components';
 
 @Component({
   selector: 'app-category-list',
@@ -9,7 +8,6 @@ import { BaseResourceListComponent } from '@finan$ys/shared/components/base-reso
   styleUrls: [ './entry-list.component.css' ],
 })
 export class EntryListComponent extends BaseResourceListComponent<Entry> implements OnInit {
-
   constructor(private entryService: EntryService) {
     super(entryService);
   }
