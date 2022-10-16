@@ -1,7 +1,7 @@
 import { Component, Injector } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { Category, CategoryService } from '@finan$ys/pages/categories/shared';
-import { BaseResourceFormComponent } from '@finan$ys/shared/components/base-resource-form';
+import { BaseResourceFormComponent } from '@finan$ys/shared/components';
 
 
 @Component({
@@ -10,7 +10,6 @@ import { BaseResourceFormComponent } from '@finan$ys/shared/components/base-reso
   styleUrls: [ './category-form.component.css' ],
 })
 export class CategoryFormComponent extends BaseResourceFormComponent<Category> {
-
 
   constructor(
     protected injector: Injector,
