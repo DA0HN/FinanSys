@@ -22,7 +22,7 @@ export class BreadCrumbComponent implements OnInit {
   }
 }
 
-interface BreadCrumbItem {
+export interface BreadCrumbItem {
   label: string;
   link?: string;
 }
