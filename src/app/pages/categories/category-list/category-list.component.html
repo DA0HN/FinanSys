@@ -21,7 +21,7 @@
       <strong>{{category.name}}</strong><br>
       <small>{{category.description}}</small>
     </td>
-    <td>
+    <td style="width: 200px">
       <a [routerLink]="[category.id, 'edit']" class="btn btn-outline-info btn-sm">Editar</a>
       <button (click)="deleteResource(category)"
               class="btn btn-outline-danger btn-sm ml-2">Excluir
