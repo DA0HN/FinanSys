@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Required } from '@finan$ys/shared/decorators';
-import { FormControl } from '@angular/forms';
+import { AbstractControl } from '@angular/forms';
 
 @Component({
   selector: 'app-form-field-error',
@@ -13,7 +13,7 @@ import { FormControl } from '@angular/forms';
 })
 export class FormFieldErrorComponent implements OnInit {
 
-  @Input() @Required formControl: FormControl;
+  @Input() @Required fieldControl: AbstractControl;
 
   constructor() {
   }
@@ -29,22 +29,22 @@ export class FormFieldErrorComponent implements OnInit {
   }
 
   private alreadyTouchedAndInvalid(): boolean {
-    return this.formControl.invalid && this.formControl.touched;
+    return this.fieldControl.invalid && this.fieldControl.touched;
   }
 
   private buildErrorMessage(): string | null {
-    if ( this.formControl.errors.required ) {
+    if ( this.fieldControl.errors.required ) {
       return 'Dado obrigatório';
     }
-    if ( this.formControl.errors.email ) {
+    if ( this.fieldControl.errors.email ) {
       return 'Formato de email inválido';
     }
-    if ( this.formControl.errors.minlength ) {
-      const requiredMinLength = this.formControl.errors.minlength.requiredLength;
+    if ( this.fieldControl.errors.minlength ) {
+      const requiredMinLength = this.fieldControl.errors.minlength.requiredLength;
       return `Deve ter no mínimo ${requiredMinLength} caracteres`;
     }
-    if ( this.formControl.errors.maxlength ) {
-      const requiredMaxLength = this.formControl.errors.maxlength.requiredLength;
+    if ( this.fieldControl.errors.maxlength ) {
+      const requiredMaxLength = this.fieldControl.errors.maxlength.requiredLength;
       return `Deve ter no máximo ${requiredMaxLength} caracteres`;
     }
     return null;
