@@ -9,12 +9,16 @@ const routes: Routes = [
   {
     path: 'entries',
     loadChildren: () => import('./pages/entries/entries.module').then(mod => mod.EntriesModule),
-  }
+  },
+  {
+    path: 'reports',
+    loadChildren: () => import('./pages/reports/reports.module').then(mod => mod.ReportsModule),
+  },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  imports: [ RouterModule.forRoot(routes) ],
+  exports: [ RouterModule ],
 })
 export class AppRoutingModule {
 }
