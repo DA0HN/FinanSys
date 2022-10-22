@@ -37,7 +37,7 @@ jobs:
       - name: Build app && Setup dist for Github Pages
         run: |
           npm run build
-          mv build/dist/finansys docs
+          mv dist/finansys docs
 
       - name: Setup base `base href`
         uses: jacobtomlinson/gha-find-replace@v2
