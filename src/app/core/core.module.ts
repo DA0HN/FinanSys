@@ -5,21 +5,25 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { InMemoryDatabase } from '@finan$ys/in-memory-database';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { NavbarComponent } from '@finan$ys/core/components';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [NavbarComponent],
   imports: [
     CommonModule,
     HttpClientModule,
     BrowserModule,
     BrowserAnimationsModule,
+    RouterModule,
     HttpClientInMemoryWebApiModule.forRoot(InMemoryDatabase),
   ],
   exports: [
     HttpClientModule,
     BrowserModule,
     BrowserAnimationsModule,
+    NavbarComponent,
   ],
 })
 export class CoreModule {
