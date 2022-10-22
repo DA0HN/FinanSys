@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { generateMonthOptions, generateYearOptions, Month, Year } from './report-parameters';
-import { ReportCard } from '@finan$ys/pages/reports/reports-card';
+import { ReportCard } from '@finan$ys/pages/reports/components';
 
 @Component({
   selector: 'app-reports',
