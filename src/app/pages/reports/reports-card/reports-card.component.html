@@ -1,0 +1,12 @@
+<div class="card-deck mt-5 mb-5">
+  <div *ngFor="let card of cards" class="card text-center text-white" [ngClass]="card.cardClass">
+    <div class="card-header">
+      {{ card.label }}
+    </div>
+    <div class="card-body">
+      <h3 class="card-title">
+        {{ card.value }}
+      </h3>
+    </div>
+  </div>
+</div>
