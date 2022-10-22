@@ -9,6 +9,7 @@ import { Required } from '@finan$ys/shared/decorators';
 export class PageHeaderComponent implements OnInit {
 
   @Input() @Required title: string;
+  @Input() btnShow = true;
   @Input() btnLabel: string;
   @Input() btnLink: string;
   @Input() btnClass: string;

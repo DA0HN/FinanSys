@@ -2,7 +2,7 @@
   <div class="col-md">
     <h1 class="h2 border-left pl-2">{{ title }}</h1>
   </div>
-  <div class="col-md">
+  <div *ngIf="btnShow" class="col-md">
     <a class="btn float-right" [ngClass]="btnClass" routerLink="{{ btnLink }}">{{ btnLabel }}</a>
   </div>
 </div>
