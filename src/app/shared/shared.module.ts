@@ -2,7 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { BreadCrumbComponent, FormFieldErrorComponent, PageHeaderComponent } from '@finan$ys/shared/components';
+import {
+  BreadCrumbComponent,
+  FormFieldErrorComponent,
+  PageHeaderComponent,
+  ServerErrorMessageComponent,
+} from '@finan$ys/shared/components';
 
 
 @NgModule({
@@ -10,6 +15,7 @@ import { BreadCrumbComponent, FormFieldErrorComponent, PageHeaderComponent } fro
     BreadCrumbComponent,
     PageHeaderComponent,
     FormFieldErrorComponent,
+    ServerErrorMessageComponent,
   ],
   imports: [
     CommonModule,
@@ -22,6 +28,7 @@ import { BreadCrumbComponent, FormFieldErrorComponent, PageHeaderComponent } fro
     BreadCrumbComponent,
     PageHeaderComponent,
     FormFieldErrorComponent,
+    ServerErrorMessageComponent,
   ],
 })
 export class SharedModule {
