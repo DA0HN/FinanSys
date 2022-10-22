@@ -23,6 +23,7 @@
           <select class="form-control" formControlName="type" id="type" name="type">
             <option *ngFor="let option of typeOptions" [ngValue]="option.field">{{option.text}}</option>
           </select>
+          <app-form-field-error [fieldControl]="form.get('type')"></app-form-field-error>
           <div *ngIf="form.get('type').invalid && form.get('type').touched" class="text-danger">
             <div *ngIf="form.get('type').errors.required">
               Dado obrigatório
@@ -55,10 +56,7 @@
                    [class.active]="form.get('paid').value === false"
                    class="btn btn-outline-danger">Pendente</label>
           </div>
-
-          <div *ngIf="form.get('paid').invalid && form.get('paid').touched" class="text-danger">
-            <div *ngIf="form.get('paid').errors.required">Dado obrigatório</div>
-          </div>
+          <app-form-field-error [fieldControl]="form.get('paid')"></app-form-field-error>
         </div>
       </div>
 
@@ -67,10 +65,7 @@
         <div class="form-group col-md-6">
           <label for="name">Lançamento</label>
           <input class="form-control" formControlName="name" id="name" type="text">
-          <div *ngIf="form.get('name').invalid && form.get('name').touched" class="text-danger">
-            <div *ngIf="form.get('name').errors.required">Dado obrigatório</div>
-            <div *ngIf="form.get('name').errors.minlength">Deve ter no mínimo 2 caracteres</div>
-          </div>
+          <app-form-field-error [fieldControl]="form.get('name')"></app-form-field-error>
         </div>
         <!--amount-->
         <div class="form-group col-md-2">
@@ -82,9 +77,7 @@
             <input [imask]="numberMaskConfig" class="form-control text-right" formControlName="amount" id="amount"
                    type="text">
           </div>
-          <div *ngIf="form.get('amount').invalid && form.get('amount').touched" class="text-danger">
-            <div *ngIf="form.get('amount').errors.required">Dado obrigatório</div>
-          </div>
+          <app-form-field-error [fieldControl]="form.get('amount')"></app-form-field-error>
         </div>
 
         <!--date-->
@@ -99,11 +92,8 @@
               id="date"
               inputStyleClass="form-control"
           >
-
           </p-calendar>
-          <div *ngIf="form.get('date').invalid && form.get('date').touched" class="text-danger">
-            <div *ngIf="form.get('date').errors.required">Dado obrigatório</div>
-          </div>
+          <app-form-field-error [fieldControl]="form.get('date')"></app-form-field-error>
         </div>
       </div>
 
