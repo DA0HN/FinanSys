@@ -65,9 +65,11 @@ export class EntryFormComponent extends BaseResourceFormComponent<Entry> impleme
   }
 
   loadCategories(): void {
-    this.categoryService.getAll().subscribe(data => {
-      this.categories = data;
-    });
+    this.categoryService.getAll()
+      .subscribe(
+        data => this.categories = data,
+        error => this.actionsForError(error),
+      );
   }
 
   protected buildResourceForm(): void {
