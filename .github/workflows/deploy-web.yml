@@ -1,0 +1,54 @@
+name: Deploy Finansys Web Application
+on:
+  push:
+    branches:
+      - master
+      - develop
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js v12
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+
+      - name: Cache node modules
+        id: cache-nodemodules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          # caching node_modules
+          path: node_modules
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+      - name: Install dependencies
+        if: step.cache-nodemodules.outputs.cache-hit != 'true'
+        run: |
+          npm ci
+      - name: Build app && Setup dist for Github Pages
+        run: |
+          npm run build
+          mv build/dist/finansys docs
+
+      - name: Setup base `base href`
+        uses: jacobtomlinson/gha-find-replace@v2
+        with:
+          find: "<base href=\"/\">"
+          replace: "<base href=\"./\">"
+          include: docs/index.html
+
+      - name: Commit `base href` updated
+        uses: EndBug/add-and-commit@v7
+        with:
+          default_author: github_actions
+          message: 'build: update build'
+          add: 'docs/*'
