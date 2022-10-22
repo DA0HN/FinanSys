@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Required } from '@finan$ys/shared/decorators';
 
 @Component({
   selector: 'app-bread-crumb',
@@ -7,7 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class BreadCrumbComponent implements OnInit {
 
-  @Input() items: BreadCrumbItem[] = [];
+  @Input() @Required items: BreadCrumbItem[] = [];
 
   constructor() {
   }
