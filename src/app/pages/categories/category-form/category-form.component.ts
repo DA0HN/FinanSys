@@ -1,161 +1,40 @@
-import {AfterContentChecked, Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Category, CategoryService} from '@/app/pages/categories/shared';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {switchMap} from 'rxjs/operators';
-import toastr from 'toastr';
+import { Component, Injector } from '@angular/core';
+import { Validators } from '@angular/forms';
+import { Category, CategoryService } from '@finan$ys/pages/categories/shared';
+import { BaseResourceFormComponent } from '@finan$ys/shared/components';
 
 
 @Component({
   selector: 'app-category-form',
   templateUrl: './category-form.component.html',
-  styleUrls: ['./category-form.component.css']
+  styleUrls: [ './category-form.component.css' ],
 })
-export class CategoryFormComponent implements OnInit, AfterContentChecked {
+export class CategoryFormComponent extends BaseResourceFormComponent<Category> {
 
-  currentAction: string;
-  categoryForm: FormGroup;
-  pageTitle: string;
-  serverErrorMessages: string[] = null;
-  submittingForm = false;
-
-  category = new Category();
-
-
-  constructor(private categoryService: CategoryService,
-              private route: ActivatedRoute,
-              private router: Router,
-              private formBuilder: FormBuilder,
+  constructor(
+    protected injector: Injector,
+    protected categoryService: CategoryService,
   ) {
+    super(injector, categoryService);
   }
 
-  ngOnInit(): void {
-    this.setCurrentAction();
-    this.buildCategoryForm();
-    this.loadCategory();
+  protected newPageTitle(): string {
+    return 'Cadastro de Nova Categoria';
   }
 
-  /**
-   * Garante que será executado apenas após o componente estar completamente carregado.
-   */
-  ngAfterContentChecked(): void {
-    this.setPageTitle();
+  protected editPageTitle(): string {
+    return `Editando categoria ${this.resourceEditedName}`;
   }
 
-  submitForm(): void {
-    this.submittingForm = true;
-
-    if (this.currentAction === 'new') {
-      this.createCategory();
-    } else {
-      this.updateCategory();
-    }
-  }
-
-  private setCurrentAction(): void {
-    const LAST_SEGMENT_URL = 0;
-    if (this.route.snapshot.url[LAST_SEGMENT_URL].path === 'new') {
-      this.currentAction = 'new';
-    } else {
-      this.currentAction = 'edit';
-    }
-  }
-
-  private buildCategoryForm(): void {
-    this.categoryForm = this.formBuilder.group({
-      id: [null],
-      name: [null, [Validators.required, Validators.minLength(2)]],
-      description: [null],
+  protected buildResourceForm(): void {
+    this.form = this.formBuilder.group({
+      id: [ null ],
+      name: [ null, [ Validators.required, Validators.minLength(2) ] ],
+      description: [ null ],
     });
   }
 
-  private loadCategory(): void {
-    if (this.currentAction === 'edit') {
-      this.route.paramMap.pipe(
-        switchMap(params =>
-          this.categoryService.getById(+params.get('id'))
-        )
-      ).subscribe(
-        (category) => {
-          this.category = category;
-          // binds loaded category data to CategoryForm
-          this.categoryForm.patchValue(category);
-        },
-        _ => alert('Ocorreu um erro no servidor, tente mais tarde.')
-      );
-    }
-  }
-
-  private setPageTitle(): void {
-    if (this.currentAction === 'new') {
-      this.pageTitle = 'Cadastro de Nova Categoria';
-    } else {
-      const categoryName = this.category.name || '';
-      this.pageTitle = `Editando categoria: ${categoryName}`;
-    }
-  }
-
-  private createCategory(): void {
-    const newCategory = Object.assign(
-      new Category(),
-      this.categoryForm.value
-    );
-
-    this.categoryService
-      .create(newCategory)
-      .subscribe(
-        (category) => this.actionsForSuccess(category),
-        error => this.actionsForError(error)
-      );
-  }
-
-  private updateCategory(): void {
-    const updatedCategory = Object.assign(
-      new Category(),
-      this.categoryForm.value
-    );
-
-    this.categoryService
-      .update(updatedCategory)
-      .subscribe(
-        (category) => this.actionsForSuccess(category),
-        error => this.actionsForError(error)
-      );
-  }
-
-  /**
-   * Apresenta a mensagem de sucesso para o usuário. <br/>
-   * Logo em seguida faz o redirecionamento do usuário para a tela de
-   * edição utilizando como parâmetro da nova categoria criada. <br/>
-   * Desse modo, após criar a Categoria o usuário irá poder atualizar os dados salvos.
-   *
-   * @param newCategory categoria que foi criada
-   * @private
-   */
-  private actionsForSuccess(newCategory: Category): void {
-    toastr.success('Solicitação processada com sucesso!');
-
-    this.router
-      .navigateByUrl('categories', {skipLocationChange: true})
-      .then(() => this.router.navigate(['categories', newCategory.id, 'edit']));
-  }
-
-  /**
-   * Apresenta mensagem de erro para o usuário. <br/>
-   * Caso seja um erro do lado do servidor armazena as mensagens de erro.
-   *
-   * @param error objeto que contém as informações sobre o erro.
-   * @private
-   */
-  private actionsForError(error): void {
-    toastr.error('Ocorreu um erro ao processar a sua solicitação!');
-
-    this.submittingForm = false;
-
-    if (error.status === 422) {
-      this.serverErrorMessages = JSON.parse(error._body).errors;
-    } else {
-      this.serverErrorMessages = ['Falha na comunicação com o servidor. Por favor, tente mais tarde.'];
-    }
+  protected formMapper(data: any): Category {
+    return Category.from(data);
   }
 }

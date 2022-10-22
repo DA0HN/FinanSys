@@ -1,8 +1,7 @@
-import {Observable} from 'rxjs';
-import {InMemoryDbService} from 'angular-in-memory-web-api';
-import {Category} from '@/app/pages/categories/shared';
-import {Entry} from '@/app/pages/entries/shared';
-
+import { Observable } from 'rxjs';
+import { InMemoryDbService } from 'angular-in-memory-web-api';
+import { Category } from '@finan$ys/pages/categories/shared';
+import { Entry } from '@finan$ys/pages/entries';
 
 export class InMemoryDatabase implements InMemoryDbService {
   createDb(): {} | Observable<{}> | Promise<{}> {

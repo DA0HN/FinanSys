@@ -1,6 +1,12 @@
-import {Category} from '@/app/pages/categories/shared';
+import { Category } from '@finan$ys/pages/categories/shared';
+import { BaseResourceModel } from '@finan$ys/shared/models';
 
-export class Entry {
+export class Entry extends BaseResourceModel {
+  static types = {
+    expense: 'Despesa',
+    revenue: 'Receita',
+  };
+
   constructor(
     public id?: number,
     public name?: string,
@@ -10,16 +16,17 @@ export class Entry {
     public date?: string,
     public paid?: boolean,
     public categoryId?: number,
-    public category?: Category
+    public category?: Category,
   ) {
+    super();
   }
-
-  static types = {
-    expense: 'Despesa',
-    revenue: 'Receita'
-  };
 
   get paidText(): string {
     return this.paid ? 'Pago' : 'Pendente';
   }
+
+  static from(json: any): Entry {
+    return Object.assign(new Entry(), json);
+  }
+
 }

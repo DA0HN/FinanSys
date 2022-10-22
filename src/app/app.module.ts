@@ -1,28 +1,19 @@
-import {BrowserModule} from '@angular/platform-browser';
-import {NgModule} from '@angular/core';
+import { NgModule } from '@angular/core';
+import { AppComponent } from '@finan$ys/app.component';
+import { AppRoutingModule } from '@finan$ys/app-routing.module';
+import { CoreModule } from '@finan$ys/core/core.module';
 
-import {AppRoutingModule} from '@/app/app-routing.module';
-import {AppComponent} from '@/app/app.component';
-import {HttpClientInMemoryWebApiModule} from 'angular-in-memory-web-api';
-import {InMemoryDatabase} from '@/app/in-memory-database';
-import {HttpClientModule} from '@angular/common/http';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
     AppRoutingModule,
-    HttpClientModule,
-    HttpClientInMemoryWebApiModule.forRoot(InMemoryDatabase),
+    CoreModule,
   ],
   providers: [],
-  bootstrap: [
-    AppComponent
-  ]
+  bootstrap: [ AppComponent ],
 })
 export class AppModule {
 }

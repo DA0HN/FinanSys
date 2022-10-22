@@ -1,13 +1,12 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import { NgModule } from '@angular/core';
 
-import {EntriesRoutingModule} from './entries-routing.module';
-import {EntryService} from './shared';
-import {EntryListComponent} from './entry-list';
-import {EntryFormComponent} from '@/app/pages/entries/entry-form';
-import {ReactiveFormsModule} from '@angular/forms';
-import {CalendarModule} from 'primeng/calendar';
-import {IMaskModule} from 'angular-imask';
+import { EntriesRoutingModule } from './entries-routing.module';
+import { CalendarModule } from 'primeng/calendar';
+import { IMaskModule } from 'angular-imask';
+import { EntryFormComponent } from './entry-form';
+import { EntryListComponent } from './entry-list';
+import { EntryService } from './shared';
+import { SharedModule } from '@finan$ys/shared/shared.module';
 
 
 @NgModule({
@@ -16,15 +15,14 @@ import {IMaskModule} from 'angular-imask';
     EntryFormComponent,
   ],
   imports: [
-    CommonModule,
+    SharedModule,
     EntriesRoutingModule,
-    ReactiveFormsModule,
     CalendarModule,
     IMaskModule,
   ],
   providers: [
-    EntryService
-  ]
+    EntryService,
+  ],
 })
 export class EntriesModule {
 }

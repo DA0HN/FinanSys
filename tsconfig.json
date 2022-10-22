@@ -2,8 +2,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./src",
-    "rootDir": "./src",
+    "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
@@ -14,10 +13,13 @@
     "importHelpers": true,
     "target": "es2015",
     "module": "es2020",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
     "paths": {
-      "@/*": [
-        "*"
-      ]
+      "@finan$ys/*": ["src/app/*"],
+      "@assets/*": ["src/assets/*"],
+      "@environments/*": ["src/environments/*"]
     },
     "lib": [
       "es2018",

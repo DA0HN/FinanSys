@@ -1,7 +1,7 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import {EntryListComponent} from '@/app/pages/entries/entry-list';
-import {EntryFormComponent} from '@/app/pages/entries/entry-form';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { EntryListComponent } from '@finan$ys/pages/entries/entry-list';
+import { EntryFormComponent } from '@finan$ys/pages/entries/entry-form';
 
 const routes: Routes = [
   {
